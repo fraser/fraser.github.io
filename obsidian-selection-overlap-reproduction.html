@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Overflow Selection Issue</title>
+    <style>
+      * {
+          box-sizing: border-box;
+      }
+      
+      body {
+      }
+
+      .app-container {
+          display: flex;
+          /* height: 100%; */
+          /* width: 100%; */
+          position: relative;
+          flex-direction: column;            
+
+          height: 300px;
+          width: 200px;
+      }
+
+      .horizontal-main-container {
+          width: 100%;
+          display: flex;
+          overflow: hidden;
+          flex: 1 0 0;
+          display: flex;
+
+          /* .is-mobile .horizontal-main-container */
+          position: relative;
+          
+          height: 250px;
+          background-color: green;
+      }
+
+      .cm-editor {
+
+          flex: 1 1 0;
+          min-height: 0;
+
+          /* .ͼ1 */
+          position: relative !important;
+          box-sizing: border-box;
+          display: flex !important;
+          flex-direction: column;
+
+          height: 250px;
+      }
+
+      .cm-scroller {
+
+          display: flex !important;
+          align-items: flex-start !important;
+          height: 100%;
+          overflow-x: auto;
+          position: relative;
+          z-index: 0;
+
+          height: 250px;
+      }
+
+      .cm-sizer {
+          /* from minimal theme */
+          display: block;
+          /* display: flex; */
+          /* flex-direction: column; */
+          /* align-items: stretch; */
+          width: 100%;
+          min-height: 100%;
+
+          height: 1000px;
+      }
+      
+      .mobile-toolbar {
+          -webkit-app-region: drag;
+          flex: 0 0 auto;
+          width: 100%;
+          overflow-y: hidden;
+          width: 100%;
+          z-index: 65;
+
+          height: 50px;
+          background-color: red;
+      }
+    </style>
+</head>
+<body>
+  
+    <div class="app-container">
+      <div class="horizontal-main-container">
+        <div class="cm-editor">
+          <div tabindex="-1" class="cm-scroller">
+            <div class="cm-sizer">
+              <div class="content">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et enim laoreet, mattis risus vitae, condimentum orci. Curabitur molestie consequat risus vel vulputate. Nullam ultricies ornare massa a malesuada. Vestibulum mattis a tortor nec vestibulum. Mauris lacinia sem eu mattis interdum. Ut ut nisl sed lacus consequat gravida nec in lectus. Vivamus leo enim, pharetra a congue vitae, mattis scelerisque nisi. Aliquam eget ipsum ac tellus placerat molestie. Proin at enim dictum, tincidunt mauris eu, rutrum neque. Etiam faucibus tortor in dignissim lobortis.</p>
+
+                <p>Nam consectetur facilisis ex, id fermentum nisl vulputate nec. Morbi hendrerit risus vitae semper congue. Vivamus ut tempor risus. Curabitur et tempus velit. Curabitur nec sapien tempor, sollicitudin tellus nec, porta tortor. Proin consequat, turpis a ultrices dapibus, velit nisl mattis justo, ut molestie nisi tortor at lacus. Donec faucibus consequat ante vitae varius. Curabitur sed eros vitae tortor tincidunt vehicula. Etiam sodales tortor eleifend, volutpat est a, rhoncus dui. Ut in nisi justo. Aenean vitae leo ac felis tincidunt vulputate eu a ex. Suspendisse potenti. Donec facilisis elementum tortor at pellentesque. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lorem tellus, finibus vitae ex nec, mattis mattis dolor.</p>
+
+                <p>Nam at ipsum volutpat, tempor nunc in, mattis nisi. Nunc condimentum interdum tortor. Sed eget tempus est. Etiam ut metus pulvinar turpis facilisis porttitor. Curabitur sed nisl vitae mauris hendrerit blandit. Cras vitae arcu semper, rhoncus neque ac, viverra lacus. In nec molestie augue. Nullam blandit felis non est pulvinar, sit amet luctus ligula pellentesque. Fusce at blandit turpis. Mauris sed lectus et felis ultrices mollis eu id augue. Suspendisse quis erat eget tortor suscipit interdum eu vitae nunc. Nam sodales fringilla tempus. Nulla ultrices odio id ligula varius, ac fringilla erat tempus. Sed accumsan egestas ultricies.</p>
+
+                <p>Sed quis lobortis massa, sodales ultrices risus. Pellentesque arcu ipsum, lobortis id pharetra vitae, porttitor sit amet lacus. Nullam quis nisl id nisl commodo molestie viverra varius est. Sed malesuada ullamcorper augue scelerisque sagittis. Mauris pulvinar elit et lorem mollis vulputate. Aliquam id ante auctor, venenatis erat at, egestas mi. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+
+                <p>Mauris auctor eleifend quam facilisis lobortis. Sed quis hendrerit urna. Etiam sollicitudin urna non velit porta tempor. Aliquam quis purus vitae mi lobortis consequat sed eu tellus. Nullam sit amet risus a ante convallis feugiat nec eu dolor. Sed id velit sed tellus fermentum ullamcorper quis interdum massa. Nam porta pellentesque augue at lacinia. Pellentesque et ipsum in leo scelerisque viverra. Quisque sagittis dolor mauris, a ultricies neque venenatis id. Pellentesque sed facilisis erat, vel tempus risus.</p>
+
+                <p>Aenean elementum ultricies est, eu pulvinar eros cursus a. Ut purus orci, varius ac efficitur vel, feugiat sed mi. Nullam placerat lacinia justo, ac sagittis turpis egestas vel. Donec quis interdum velit. Sed venenatis eleifend ex, in molestie lectus mollis aliquet. Aliquam gravida enim elit, ut tempus quam imperdiet in. Ut tristique posuere sem quis commodo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Donec tincidunt urna quis tellus semper tempor.</p>
+
+                <p>Sed pulvinar finibus posuere. Cras ut sollicitudin felis. Suspendisse bibendum lectus vitae egestas mattis. Aenean sed purus vitae erat mattis faucibus. Pellentesque nec felis quis mauris lobortis dictum id vitae ligula. Aliquam erat volutpat. Vestibulum vel ultricies lectus. Ut fermentum nulla ante, in congue eros iaculis sed.</p>
+
+                <p>Donec imperdiet nec enim id efficitur. Mauris cursus, neque nec aliquam imperdiet, felis sem luctus metus, ac suscipit ligula nunc fermentum risus. Aliquam ac lectus id arcu molestie maximus. Sed id eros a enim lacinia placerat eu vel velit. Vestibulum sed augue lectus. Nam risus orci, pulvinar quis odio id, luctus lacinia neque. Donec eu tincidunt ipsum, condimentum iaculis arcu. Etiam dignissim, velit id egestas consectetur, elit mauris molestie nibh, nec semper nulla magna ac tellus.</p>
+
+                <p>Praesent volutpat lorem viverra felis ullamcorper rutrum. Integer pharetra porttitor eros, ut elementum turpis condimentum in. Suspendisse vehicula tellus ut elit pretium efficitur. Duis in ipsum mattis, sagittis enim sit amet, pellentesque odio. Pellentesque a tincidunt massa, sit amet dictum nisl. Aenean ut urna vestibulum, porttitor arcu ut, scelerisque tellus. In ut suscipit felis. Proin aliquam lobortis nisl, a consectetur mi rutrum et. Suspendisse lorem turpis, malesuada id iaculis eget, aliquam vitae sapien.</p>
+
+                <p>Suspendisse potenti. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi euismod porttitor facilisis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Maecenas sed magna ut enim finibus feugiat. Aliquam ac hendrerit nunc, ut tempor mauris. Etiam tempus vitae diam sed ullamcorper. Sed in ornare sem.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mobile-toolbar">
+        <i data-lucide="volume-2"></i>
+        <i data-lucide="x"></i>
+        <i data-lucide="menu"></i>
+      </div>
+    </div>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    lucide.createIcons();
+  </script>    
+</body>
+</html>
